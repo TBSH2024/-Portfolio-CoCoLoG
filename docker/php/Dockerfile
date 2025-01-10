@@ -1,0 +1,20 @@
+FROM php:8.3-fpm
+
+RUN apt-get update \
+    && apt-get install -y git libzip-dev unzip \
+    && apt-get install -y libpng-dev libjpeg-dev \
+    && apt-get install -y libfreetype6-dev curl make autoconf \
+    && git config --global --add safe.directory /var/www/html/src/ \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN docker-php-ext-install zip pdo pdo_mysql mysqli opcache
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/www/html

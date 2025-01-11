@@ -14,4 +14,7 @@
             </div>
         </div>
     </div>
+    <a href="{{ route('daily.create') }}">日常管理入力</a>
+    <a href="{{ route('crisis_plan.create') }}">クライシスプラン作成</a>
+    <a href="{{ route('crisis_plan.edit') }}">クライシスプランの編集</a>
 </x-app-layout>

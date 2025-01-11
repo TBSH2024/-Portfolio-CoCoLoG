@@ -14,4 +14,12 @@ class HealthRecord extends Model
         'sleep_quality',
         'comments'
     ];
+
+    /**
+     * Userとのリレーション
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

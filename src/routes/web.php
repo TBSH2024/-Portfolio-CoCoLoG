@@ -2,23 +2,52 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HealthRecordController;
+use App\Http\Controllers\CrisisPlanController;
 use Illuminate\Support\Facades\Route;
+
+Route::middleware('auth')->group(function() {
+    
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['verified'])->name('dashboard');
+    
+    Route::controller('ProfileController::class')
+        ->name('profile.')
+        ->group(function () {
+        Route::get('/profile', 'edit')->name('edit');
+        Route::patch('/profile', 'update')->name('update');
+        Route::delete('/profile', 'destroy')->name('destroy');
+    });
+    Route::controller(HealthRecordController::class)
+        ->prefix('daily')
+        ->name('daily.')
+        ->group(function() {
+        Route::get('/create', 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+    });
+    
+    Route::controller(CrisisPlanController::class)
+        ->prefix('crisis_plan')
+        ->name('crisis_plan.')
+        ->group(function() {
+        Route::get('/create', 'create')->name('create');
+        Route::get('/edit', 'edit')->name('edit');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+    });
+    
+    Route::controller(CrisisPlanLogsController::class)
+        ->prefix('crisis_plan_logs')
+        ->name('crisis_plan_logs.')
+        ->group(function() {
+        Route::get('/create', 'create')->name('create');
+    });
+
+});
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::get('/daily/create', [HealthRecordController::class, 'create'])->name('daily.create');
-Route::post('/daily/store', [HealthRecordController::class, 'store'])->name('daily.store');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

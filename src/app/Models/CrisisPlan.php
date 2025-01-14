@@ -21,6 +21,19 @@ class CrisisPlan extends Model
         'bad_actions' => 'array',
     ];
 
+    public function getGoodActionsAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+    public function getNeutralActionsAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+    public function getBadActionsAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
     /**
      * Userとのリレーション
      */

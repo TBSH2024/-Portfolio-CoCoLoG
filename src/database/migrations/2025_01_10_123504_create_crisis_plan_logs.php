@@ -15,10 +15,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('crisis_plan_id')->constrained()->OnDelete('cascade');
-            $table->enum('category', ['good', 'neutral', 'bad']);
-            $table->integer('action_index');
             $table->date('input_date');
+            $table->json('good_actions')->nullable();
+            $table->json('neutral_actions')->nullable();
+            $table->json('bad_actions')->nullable();
             $table->timestamps();
+
+            $table->unique(['user_id', 'input_date']);
         });
     }
 

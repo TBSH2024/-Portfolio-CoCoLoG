@@ -20,6 +20,12 @@ class CrisisPlanController extends Controller
 
     public function store(Request $request)
     {
+
+        $existingPlan = CrisisPlan::where('user_id', Auth::id())->exists();
+        if ($existingPlan) {
+            return to_route('crisis_plan.create');
+        }
+
         $request->validate([
             'good_actions' => ['array', 'max:5', 'min:1'],
             'neutral_actions' => ['array', 'max:5', 'min:1'],
@@ -33,7 +39,7 @@ class CrisisPlanController extends Controller
             'bad_actions' => $request->bad_actions,
         ]);
 
-        return to_route('dashboard')->with('success', 'クライシスプランを作成しました！');
+        return to_route('dashboard')->with('success', 'クライシスプランを作成しました。');
     }
 
     public function edit()
@@ -61,7 +67,7 @@ class CrisisPlanController extends Controller
             'bad_actions' => $request->bad_actions,
         ]);
 
-        return to_route('dashboard')->with('success', 'クライシスプランを更新しました！');
+        return to_route('dashboard')->with('success', 'クライシスプランを更新しました。');
     }
 
     public function destroy($id)

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HealthRecordController;
 use App\Http\Controllers\CrisisPlanController;
+use App\Http\Controllers\CrisisPlanLogsController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function() {
@@ -38,10 +39,15 @@ Route::middleware('auth')->group(function() {
     });
     
     Route::controller(CrisisPlanLogsController::class)
-        ->prefix('crisis_plan_logs')
-        ->name('crisis_plan_logs.')
+        ->prefix('logs')
+        ->name('logs.')
         ->group(function() {
+        Route::get('/index', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
+        Route::get('/{id}', 'edit')->name('edit');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
     });
 
 });

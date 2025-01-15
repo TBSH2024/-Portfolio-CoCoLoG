@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('health_records', function (Blueprint $table) {
+        Schema::create('wellness_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->date('date');
+            $table->date('input_date');
             $table->integer('mood');
             $table->integer('energy_level');
             $table->integer('sleep_quality');
             $table->text('comments')->nullable();
             $table->timestamps();
+
+            $table->unique(['user_id', 'input_date']);
         });
     }
 

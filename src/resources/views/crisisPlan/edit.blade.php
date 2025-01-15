@@ -7,7 +7,7 @@
                     <p>まだクライシスプランが作成されていません。</p>
                     <a href="{{ route('crisis_plan.create') }}" class="text-indigo-500 underline">クライシスプランの作成はこちらをクリックしてください。</a>
                 </div>
-                @else
+            @else
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $user->name }}さんのクライシスプラン編集画面</h1>
             </div>
             <form method="POST" action="{{ route('crisis_plan.update', [$crisisPlan->id]) }}">

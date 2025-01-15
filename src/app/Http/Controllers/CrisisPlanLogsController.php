@@ -28,7 +28,10 @@ class CrisisPlanLogsController extends Controller
             ->whereMonth('input_date', now()->month)
             ->get();
 
-        return view('crisisPlanLogs.index', compact('user', 'logsByMonth', 'logsByDay'));
+        $crisisPlanTable = CrisisPlan::where('user_id', $this->user->id)
+            ->first();
+
+        return view('crisisPlanLogs.index', compact('user', 'logsByMonth', 'logsByDay', 'crisisPlanTable'));
     }
 
     public function create()
@@ -84,7 +87,6 @@ class CrisisPlanLogsController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $crisisPlanLog = CrisisPlanLog::where('user_id', $this->user->id)
             ->where('id', $id)
             ->firstOrFail();

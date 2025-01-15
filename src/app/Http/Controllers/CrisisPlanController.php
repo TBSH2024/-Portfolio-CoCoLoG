@@ -12,7 +12,6 @@ class CrisisPlanController extends Controller
     {
         $user = Auth::user();
 
-        // 既にクライシスプランが存在するか確認
         $crisisPlan = CrisisPlan::where('user_id', $user->id)->first();
 
         return view('crisisPlan.create', compact('user', 'crisisPlan'));
@@ -42,7 +41,7 @@ class CrisisPlanController extends Controller
         return to_route('dashboard')->with('success', 'クライシスプランを作成しました。');
     }
 
-    public function edit()
+    public function edit(string $id)
     {
         $user = Auth::user();
 

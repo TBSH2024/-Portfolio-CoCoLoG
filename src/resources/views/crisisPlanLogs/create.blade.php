@@ -8,6 +8,12 @@
                     <a href="{{ route('logs.create', $crisisPlanLog->id) }}" class="text-indigo-500 underline">編集する場合はこちらをクリックしてください。</a>
                 </div>
                 @endif
+                @if (!$crisisPlanTable)
+                <div class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
+                    <p>まだクライシスプランが作成されていません。</p>
+                    <a href="{{ route('crisis_plan.create') }}" class="text-indigo-500 underline">クライシスプランの作成はこちらをクリックしてください。</a>
+                </div>
+                @else
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
                     {{ $user->name }}さんの日々の体調入力
                 </h1>
@@ -89,6 +95,7 @@
                         </button>
                     </div>
                 </div>
+            @endif
             </form>
         </div>
     </section>

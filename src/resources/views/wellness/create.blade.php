@@ -2,16 +2,22 @@
   <section class="text-gray-600 body-font relative">
     <div class="container px-5 py-24 mx-auto">
       <div class="flex flex-col text-center w-full mb-4">
+      @if ($wellnessLog)
+        <div class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
+            <p>既に本日の体調は入力されています。</p>
+            <a href="{{ route('wellness.edit', $wellnessLog->id) }}" class="text-indigo-500 underline">編集する場合はこちらをクリックしてください。</a>
+        </div>
+      @endif
         <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">今日の体調</h1>
       </div>
       <div class="lg:w-1/2 md:w-2/3 mx-auto">
-      <form action="{{ route('daily.store') }}" method="POST">
+      <form action="{{ route('wellness.store') }}" method="POST">
       @csrf
         <div class="flex flex-wrap -m-2">
           <div class="p-2 w-1/2">
             <div class="relative">
               <label for="date" class="leading-7 text-sm text-gray-600">入力日</label>
-              <input type="date" id="date" name="date" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+              <input type="date" id="input_date" name="input_date" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
             </div>
           </div>
 
@@ -31,7 +37,7 @@
 
           <div class="p-2 w-1/2">
             <div class="relative">
-              <label for="energy" class="leading-7 text-sm text-gray-600">元気度</label>
+              <label for="energy_level" class="leading-7 text-sm text-gray-600">元気度</label>
               <div class="flex space-x-4">
                 <label><input type="radio" name="energy_level" value="1" /> 元気</label>
                 <label><input type="radio" name="energy_level" value="2" /> 普通</label>
@@ -42,7 +48,7 @@
 
           <div class="p-2 w-1/2">
             <div class="relative">
-              <label for="energy" class="leading-7 text-sm text-gray-600">昨日の睡眠の質</label>
+              <label for="sleep_quality" class="leading-7 text-sm text-gray-600">昨日の睡眠の質</label>
               <div class="flex space-x-4">
                 <label><input type="radio" name="sleep_quality" value="1" /> よく眠れた</label>
                 <label><input type="radio" name="sleep_quality" value="2" /> まぁまぁ</label>
@@ -53,8 +59,8 @@
 
           <div class="p-2 w-full">
             <div class="relative">
-              <label for="message" class="leading-7 text-sm text-gray-600">コメント</label>
-              <textarea id="messages" name="messages" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+              <label for="comments" class="leading-7 text-sm text-gray-600">コメント</label>
+              <textarea id="comments" name="comments" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
             </div>
           </div>
 
@@ -69,6 +75,6 @@
 
   <script>
     // 日付入力フィールドに今日の日付をセット
-    document.getElementById('date').valueAsDate = new Date();
+    document.getElementById('input_date').valueAsDate = new Date();
   </script>
 </x-app-layout>

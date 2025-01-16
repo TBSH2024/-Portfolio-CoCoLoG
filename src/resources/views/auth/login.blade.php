@@ -1,9 +1,14 @@
 <x-guest-layout>
+    <div class="w-full max-w-xl mx-auto px-6 py-4 bg-white shadow-lg rounded-lg">
+    @section('title', 'CocoLog / ログイン')
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
+
+        <h1 class="text-4xl mt-4 font-bold text-green-600 text-center">CocoLog</h1>
+        <h2 class="mt-4 mb-4 text-xl font-bold text-center">ログイン</h2>
 
         <!-- Email Address -->
         <div>
@@ -44,4 +49,5 @@
             </x-primary-button>
         </div>
     </form>
+    </div>
 </x-guest-layout>

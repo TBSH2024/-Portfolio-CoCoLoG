@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'CocoLog / トップページ')
     <div class="container mx-auto py-6 max-w-4xl">
 
         <div class="mt-6 mb-12">
@@ -46,8 +47,8 @@
         </div>
 
         <div class="mt-6 text-right">
-            <a href="{{ route('wellness.index') }}" class="text-indigo-600 font-semibold">元気度の記録一覧を見る</a> |
-            <a href="{{ route('logs.index') }}" class="text-indigo-600 font-semibold">クライシスプランの記録一覧を見る</a>
+            <a href="{{ route('wellness.index') }}" class="text-indigo-600 font-semibold">日々の体調記録一覧を見る</a> |
+            <a href="{{ route('logs.index') }}" class="text-indigo-600 font-semibold">日々のクライシスプラン記録一覧を見る</a>
         </div>
     </div>
 </x-app-layout>

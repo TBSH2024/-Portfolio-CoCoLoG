@@ -5,7 +5,7 @@
       @if ($wellnessLog)
         <div class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
             <p>既に本日の体調は入力されています。</p>
-            <a href="{{ route('wellness.edit', $wellnessLog->id) }}" class="text-indigo-500 underline">編集する場合はこちらをクリックしてください。</a>
+            <a href="{{ route('wellness.edit', [$wellnessLog->id]) }}" class="text-indigo-500 underline">編集する場合はこちらをクリックしてください。</a>
         </div>
       @endif
         <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">今日の体調</h1>

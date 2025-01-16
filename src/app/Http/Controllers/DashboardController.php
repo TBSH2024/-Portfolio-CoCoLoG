@@ -10,39 +10,46 @@ use Carbon\Carbon;
 class DashboardController extends Controller
 {
     public function index()
-    {
-        // ログインユーザーを取得
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        // 過去1週間の体調データを取得
-        $wellnessLogs = WellnessLog::where('user_id', $user->id)
-            ->orderBy('input_date', 'desc')
-            ->take(5)
-            ->get();
+    $startDate = Carbon::now()->subDays(6)->startOfDay();
+    $endDate = Carbon::now()->endOfDay();
 
-        // 過去1週間のクライシスプランログを取得
-        $crisisPlanLogs = CrisisPlanLog::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->take(5)
-            ->get();
-
-        // 健康状態の推移用データ
-        $logs = WellnessLog::where('user_id', $user->id)
-            ->whereDate('input_date', '>=', Carbon::now()->subWeek())
-            ->get();
-
-        // ラベル（日付）とスコアを取得
-        $labels = $logs->pluck('input_date')->map(function ($date) {
-            return Carbon::parse($date)->format('Y-m-d');
+    $wellnessLogs = WellnessLog::where('user_id', $user->id)
+        ->whereBetween('input_date', [$startDate, $endDate])
+        ->get()
+        ->mapWithKeys(function ($log) {
+            $date = Carbon::parse($log->input_date)->format('Y-m-d');
+            return [$date => $log];
         });
 
-        $scores = $logs->pluck('score');
+    $crisisPlanLogs = CrisisPlanLog::where('user_id', $user->id)
+    ->whereBetween('created_at', [$startDate, $endDate])
+    ->get()
+    ->map(function ($log) {
+        $log->status = $log->input_date ? '入力済' : '未入力';
+        return $log;
+    })
+    ->groupBy(function ($log) {
+        return Carbon::parse($log->created_at)->format('Y-m-d');
+    });
 
-        return view('dashboard', [
-            'wellnessLogs' => $wellnessLogs,
-            'crisisPlanLogs' => $crisisPlanLogs,
-            'labels' => $labels,
-            'scores' => $scores,
+    $logs = collect();
+    foreach (range(0, 6) as $day) {
+        $date = Carbon::now()->subDays($day)->format('Y-m-d');
+        $logs->push([
+            'date' => $date,
+            'wellness' => $wellnessLogs->get($date) ?? null,
+            'crisis' => optional($crisisPlanLogs->get($date))->first(),
         ]);
     }
+
+    return view('dashboard', [
+        'logs' => $logs->sortBy('date'),
+    ]);
+}
+
+
+
 }

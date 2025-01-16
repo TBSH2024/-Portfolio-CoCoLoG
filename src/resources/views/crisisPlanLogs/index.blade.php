@@ -12,22 +12,22 @@
             </div>
 
             <div class="overflow-x-auto">
-                <table class="table-auto w-full text-left">
+                <table class="table-auto w-full text-left" style="table-layout: fixed;">
                     <thead>
                         <tr class="bg-gray-100 text-gray-600">
-                            <th class="px-6 py-3">日付</th>
-                            <th class="px-6 py-3">良い状態</th>
-                            <th class="px-6 py-3">普通の状態</th>
-                            <th class="px-6 py-3">悪い状態</th>
-                            <th class="px-6 py-3">リンク先</th>
+                            <th class="px-6 py-3" style="width: 20%;">日付</th>
+                            <th class="px-6 py-3" style="width: 26%;">良い状態</th>
+                            <th class="px-6 py-3" style="width: 26%;">普通の状態</th>
+                            <th class="px-6 py-3" style="width: 26%;">悪い状態</th>
+                            <th class="px-6 py-3" style="width: 12%;">リンク先</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($logsByDay as $log)
                             <tr class="border-b">
-                                <td class="px-6 py-3">{{ $log->input_date }}</td>
+                                <td class="px-6 py-3" style="word-wrap: break-word;">{{ $log->input_date }}</td>
 
-                                <td class="px-6 py-3">
+                                <td class="px-6 py-3" style="word-wrap: break-word;">
                                     @if($log->good_actions)
                                         {{ implode(', ', $log->good_actions) }}
                                     @else
@@ -35,7 +35,7 @@
                                     @endif
                                 </td>
 
-                                <td class="px-6 py-3">
+                                <td class="px-6 py-3" style="word-wrap: break-word;">
                                     @if($log->neutral_actions)
                                         {{ implode(', ', $log->neutral_actions) }}
                                     @else
@@ -43,7 +43,7 @@
                                     @endif
                                 </td>
 
-                                <td class="px-6 py-3">
+                                <td class="px-6 py-3" style="word-wrap: break-word;">
                                     @if($log->bad_actions)
                                         {{ implode(', ', $log->bad_actions) }}
                                     @else
@@ -52,7 +52,7 @@
                                 </td>
 
                                 <td class="px-6 py-3">
-                                    <a href="{{ route('logs.edit', $log->id) }}" class="text-indigo-500 hover:text-indigo-600">編集</a>
+                                    <a href="{{ route('logs.edit', $log->id) }}" class="text-indigo-500 hover:text-indigo-600">編集/削除</a>
                                 </td>
                             </tr>
                         @endforeach

@@ -5,7 +5,7 @@
                 @if ($crisisPlanLog)
                 <div class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
                     <p>既に本日の体調は入力されています。</p>
-                    <a href="{{ route('logs.create', $crisisPlanLog->id) }}" class="text-indigo-500 underline">編集する場合はこちらをクリックしてください。</a>
+                    <a href="{{ route('logs.edit', [$crisisPlanLog->id]) }}" class="text-indigo-500 underline">編集する場合はこちらをクリックしてください。</a>
                 </div>
                 @endif
                 @if (!$crisisPlanTable)

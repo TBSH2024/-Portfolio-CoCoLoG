@@ -6,7 +6,7 @@
                     {{ $formattedDate }}の体調を編集
                 </h1>
             </div>
-            <form method="POST" action="{{ route('logs.update', $crisisPlanLog->id) }}">
+            <form method="POST" action="{{ route('logs.update', [$crisisPlanLog->id]) }}">
                 @csrf
                 @method('PUT')
                 <div class="lg:w-3/4 md:w-full mx-auto">
@@ -18,11 +18,11 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        @if (!empty($crisisPlanTable->good_actions))
+                        @if ($crisisPlanTable->good_actions && count(array_filter($crisisPlanTable->good_actions)) > 0)
                             <div class="border rounded-lg p-4">
                                 <h2 class="text-lg font-semibold text-gray-800 text-center mb-2">状態が良い時</h2>
                                 <div class="space-y-2">
-                                    @foreach ($crisisPlanTable->good_actions as $i => $action)
+                                    @foreach (array_filter($crisisPlanTable->good_actions) as $i => $action)
                                         <div class="flex items-center">
                                             <input type="checkbox" id="good_action_{{ $i }}" name="good_actions[]" 
                                                    value="{{ $action }}" class="mr-2"
@@ -34,11 +34,11 @@
                             </div>
                         @endif
 
-                        @if (!empty($crisisPlanTable->neutral_actions))
+                        @if ($crisisPlanTable->neutral_actions && count(array_filter($crisisPlanTable->neutral_actions)) > 0)
                             <div class="border rounded-lg p-4">
                                 <h2 class="text-lg font-semibold text-gray-800 text-center mb-2">状態が普通の時</h2>
                                 <div class="space-y-2">
-                                    @foreach ($crisisPlanTable->neutral_actions as $i => $action)
+                                    @foreach (array_filter($crisisPlanTable->neutral_actions) as $i => $action)
                                         <div class="flex items-center">
                                             <input type="checkbox" id="neutral_action_{{ $i }}" name="neutral_actions[]" 
                                                    value="{{ $action }}" class="mr-2"
@@ -50,11 +50,11 @@
                             </div>
                         @endif
 
-                        @if (!empty($crisisPlanTable->bad_actions))
+                        @if ($crisisPlanTable->bad_actions && count(array_filter($crisisPlanTable->bad_actions)) > 0)
                             <div class="border rounded-lg p-4">
                                 <h2 class="text-lg font-semibold text-gray-800 text-center mb-2">状態が悪い時</h2>
                                 <div class="space-y-2">
-                                    @foreach ($crisisPlanTable->bad_actions as $i => $action)
+                                    @foreach (array_filter($crisisPlanTable->bad_actions) as $i => $action)
                                         <div class="flex items-center">
                                             <input type="checkbox" id="bad_action_{{ $i }}" name="bad_actions[]" 
                                                    value="{{ $action }}" class="mr-2"
@@ -74,7 +74,8 @@
                     </div>
                 </div>
             </form>
-                <form method="POST" action="{{ route('logs.destroy', ['id' => $crisisPlanLog->id]) }}">
+
+            <form method="POST" action="{{ route('logs.destroy', ['id' => $crisisPlanLog->id]) }}">
                 @csrf
                 @method('DELETE')
                 <div class="mt-8 text-center">
@@ -82,8 +83,7 @@
                         削除する
                     </button>
                 </div>
-                </form>
-            </div>
+            </form>
         </div>
     </section>
 </x-app-layout>

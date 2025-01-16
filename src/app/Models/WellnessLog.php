@@ -15,6 +15,18 @@ class WellnessLog extends Model
         'comments'
     ];
 
+    public function getMoodLabelAttribute()
+    {
+        $labels = [
+            0 => '非常に良い',
+            1 => '良い',
+            2 => '普通',
+            3 => '悪い',
+            4 => '非常に悪い',
+        ];
+        return $labels[$this->attributes['mood']] ?? '不明';
+    }
+
     public function scopeGroupByMonth($query, $userId)
     {
         return $query->where('user_id', $userId)

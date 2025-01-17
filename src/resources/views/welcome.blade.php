@@ -1,57 +1,66 @@
 <x-guest-layout>
     @section('title', 'CocoLog')
-    <div class="w-full max-w-4xl mx-auto px-6 py-4 bg-white shadow-lg rounded-lg">
-        <div class="container mx-auto py-6 px-6 max-w-7xl">
 
-            <div class="text-center mb-10">
-                <img src="{{ asset('images/logo.png') }}" alt="logo" class="mx-auto w-48 h-auto mb-6">
-                <p class="text-lg text-gray-600 mt-2">日々の体調やクライシスプランを簡単に記録・管理しましょう。</p>
-            </div>
+    <header class="text-white max-w-7xl w-full">
+        <div class="container mx-auto flex justify-between items-center py-4 px-4">
+        <a href="#">
+            <img src="{{ asset('images/logo.png') }}" alt="CocoLogロゴ" class="w-60 h-auto">
+        </a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li>
+                        <a href="{{ route('login') }}" class="text-md text-sky-500 font-bold border p-2 border-sky-300 rounded hover:shadow hover:bg-sky-100 cursor-pointer">ログイン</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('register') }}" class="bg-sky-500 text-md text-white font-bold border p-2 border-sky-300 rounded hover:shadow hover:bg-sky-700 cursor-pointer">無料で始める</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
+    <main class="bg-sky-50 w-full">
+        <div class="container mx-auto px-6 py-16">
             <div class="text-center mb-12">
-                <p class="text-xl text-gray-700">CocoLogは、あなたの日々の体調や状態を管理するためのアプリケーションです。</p>
-                <p class="text-lg text-gray-600 mt-2">今すぐアカウントを作成して、健康管理を始めましょう。</p>
+                <h1 class="text-6xl font-bold text-gray-600 mt-10 leading-snug">
+                    日々の<span class="text-blue-500">体調管理</span><br>
+                    <span class="text-blue-500">クライシス･プラン</span>をもっと身近に</h1>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                <div class="text-center bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-200">
-                    <svg class="w-16 h-16 text-indigo-600 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12V8a4 4 0 10-8 0v4a4 4 0 100 8h8a4 4 0 100-8z" />
-                    </svg>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">会員登録</h3>
-                    <p class="text-gray-600 mb-4">新しいアカウントを作成し、すぐに健康管理を始めましょう。</p>
-                    <a href="{{ route('register') }}" class="bg-indigo-600 text-white py-2 px-4 rounded-full hover:bg-indigo-700 transition duration-300">会員登録</a>
-                </div>
-
-                <div class="text-center bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-200">
-                    <svg class="w-16 h-16 text-indigo-600 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">ログイン</h3>
-                    <p class="text-gray-600 mb-4">既にアカウントをお持ちですか？ログインしてデータを管理しましょう。</p>
-                    <a href="{{ route('login') }}" class="bg-indigo-600 text-white py-2 px-4 rounded-full hover:bg-indigo-700 transition duration-300">ログイン</a>
-                </div>
+            <div class="bg-white rounded-lg p-8 w-2/3 mx-auto mb-20">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">クライシス･プランとは</h2>
+                <p class="text-lg leading-relaxed">クライシス･プランは精神疾患を抱えた患者やその周囲の支援者が、病状悪化に備えて作成する計画書です。<br>
+                    病状を「安定状態」、「注意状態」、「要注意状態」の3つに分け、その状態に応じた自己対処や支援者の対応をまとめます。
+                    クライシス･プランの目的は、再発の兆候や病状の悪化を早期に知ることで、再発を防止することです。
+                    また、病状を安定させ目標に向かうための支援ツールにもなります。</p>
             </div>
 
-            <!-- 機能紹介セクション -->
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-semibold text-gray-800 mb-6">CocoLogの主な機能</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-semibold text-indigo-600 mb-4">体調の記録</h3>
-                        <p class="text-gray-700">毎日の体調や気分を簡単に記録し、健康状態を把握できます。</p>
+            <div class="max-w-sm mx-auto mb-20">
+                <form action="{{ route('register') }}">
+                <button class="w-full p-3 rounded-lg border bg-sky-500 text-center cursor:pointer font-bold text-white hover:bg-sky-700">無料で始める</button>
+                </form>
+            </div>
+
+            <div class="text-gray-800 mb-12">
+                <h2 class="text-4xl font-bold text-center mb-8">CoCoLoGでできること</h2>
+                <div class="grid grid-cols-3 max-w-7xl mx-auto text-center">
+                    <div class="bg-white rounded-lg py-2 mx-4 pb-8">
+                        <h2 class="text-2xl font-semibold my-8">日々の体調の記録</h2>
+                        <p class="text-lg">日々の体調を「気分」、「元気度」、「昨日の睡眠の質」で判別し、記録できます。
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <h3 class="text-xl font-semibold text-indigo-600 mb-4">クライシスプランの管理</h3>
-                        <p class="text-gray-700">体調に応じたクライシスプランを記録し、必要な時に迅速に対応できます。</p>
+                    <div class="bg-white rounded-lg py-2">
+                        <h2 class="text-2xl font-semibold my-8">クライシス･プランの作成</h2>
+                        <p class="text-lg">「安定状態」、「注意状態」、「要注意状態」を5つずつ設定可能なクライシス･プランが作成できます。</p>
+                    </div>
+                    <div class="bg-white rounded-lg py-2 mx-4">
+                        <h2 class="text-2xl font-semibold my-8">クライシス･プランの日々の記録</h2>
+                        <p class="text-lg">作成したクライシス･プランを元に日々の状態記録ができます。</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- 最後のメッセージ -->
-            <div class="text-center">
-                <p class="text-sm text-gray-500">CocoLogへようこそ！あなたの健康をサポートします。</p>
             </div>
         </div>
-    </div>
+        <footer class="py-4">
+            <p class="text-center">©2025 CoCoLog. All Rights Reserved.</p>
+         </footer>
+    </main>
 </x-guest-layout>

@@ -59,6 +59,10 @@ class CrisisPlanLogsController extends Controller
         ]);
 
         $crisisPlanId = CrisisPlan::where('user_id', $user->id)->firstOrFail()->id;
+        if (!$crisisPlanId) {
+            return redirect()->back();
+        }
+        
         $inputDate = $validated['input_date'];
 
         $crisisPlanLog = CrisisPlanLog::create([

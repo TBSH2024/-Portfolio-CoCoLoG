@@ -18,8 +18,6 @@ return new class extends Migration
             $table->json('neutral_actions');
             $table->json('bad_actions');
             $table->timestamps();
-
-            $table->unique(['id', 'user_id']);
         });
     }
 

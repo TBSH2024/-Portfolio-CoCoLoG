@@ -68,7 +68,7 @@ class WellnessLogsController extends Controller
             'comments' => $request->comments,
         ]);
 
-        return to_route('dashboard');
+        return to_route('dashboard')->with('success', '今日の体調を記録しました。');
     }
 
     public function edit(string $id)
@@ -107,6 +107,6 @@ class WellnessLogsController extends Controller
 
         $wellnessLog->delete();
 
-        return to_route('wellness.index');
+        return to_route('wellness.index')->with('danger', 'データを削除しました。');
     }
 }

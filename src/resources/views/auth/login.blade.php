@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="w-full max-w-xl mx-auto px-6 py-4 bg-white shadow-lg rounded-lg">
+    <div class="w-full max-w-xl mx-auto px-6 py-4 bg-sky-50 rounded-lg">
     @section('title', 'CocoLog / ログイン')
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -7,8 +7,8 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <h1 class="text-4xl mt-4 font-bold text-green-600 text-center">CocoLog</h1>
-        <h2 class="mt-4 mb-4 text-xl font-bold text-center">ログイン</h2>
+        <img src="{{ asset('images/logo.png') }}" alt="CocoLogロゴ" class="w-60 h-auto mx-auto my-8">
+        <h2 class="mt-4 mb-8 text-2xl font-bold text-center">ログイン</h2>
 
         <!-- Email Address -->
         <div>
@@ -37,14 +37,14 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-end my-4">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
+            <x-primary-button class="ms-3 bg-blue-500 hover:bg-blue-700">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>

@@ -14,6 +14,9 @@
             <div class="relative">
               <label for="date" class="leading-7 text-sm text-gray-600">入力日</label>
               <input type="date" id="input_date" name="input_date" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" value="{{ old('input_date', $wellnessLog->input_date) }}" />
+              @error('input_date')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+              @enderror
             </div>
           </div>
 
@@ -28,6 +31,9 @@
                 <option value="4" @if ($wellnessLog->mood === 4) selected @endif>悪い</option>
                 <option value="5" @if ($wellnessLog->mood === 5) selected @endif>非常に悪い</option>
               </select>
+              @error('mood')
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+              @enderror
             </div>
           </div>
 
@@ -69,7 +75,7 @@
       @csrf
       @method('DELETE')
         <div class="p-2 mt-4 w-full">
-            <button class="flex mx-auto text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">削除する</button>
+            <button class="confirm_delete flex mx-auto text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">削除する</button>
         </div>
       </form>
       </div>

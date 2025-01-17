@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('crisis_plan_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('crisis_plan_id')->constrained()->OnDelete('cascade');
+            $table->foreignId('crisis_plan_id')->constrained()->onDelete('cascade');
             $table->date('input_date');
             $table->json('good_actions')->nullable();
             $table->json('neutral_actions')->nullable();

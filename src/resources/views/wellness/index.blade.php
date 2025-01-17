@@ -3,7 +3,13 @@
     <section class="text-gray-600 body-font relative">
         <div class="container px-5 py-24 mx-auto">
             <div class="flex flex-col text-center w-full mb-4">
-                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $user->name }}さんの日々の体調ログ一覧</h1>
+                @if ($logsByDay->isEmpty())
+                    <div class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
+                        <p>まだ体調が記録されていません。</p>
+                        <a href="{{ route('wellness.create') }}" class="text-indigo-500 underline">体調の記録はこちらをクリックしてください。</a>
+                    </div>
+                @else
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $user->name }}さんの日々の体調記録一覧</h1>
             </div>
 
             <div class="overflow-x-auto">
@@ -46,6 +52,7 @@
                     </tbody>
                 </table>
             </div>
+            @endif
         </div>
     </section>
 </x-app-layout>

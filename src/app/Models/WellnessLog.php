@@ -18,11 +18,11 @@ class WellnessLog extends Model
     public function getMoodLabelAttribute()
     {
         $labels = [
-            0 => '非常に良い',
-            1 => '良い',
-            2 => '普通',
-            3 => '悪い',
-            4 => '非常に悪い',
+            1 => '非常に良い',
+            2 => '良い',
+            3 => '普通',
+            4 => '悪い',
+            5 => '非常に悪い',
         ];
         return $labels[$this->attributes['mood']] ?? '不明';
     }

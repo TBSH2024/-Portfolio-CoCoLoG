@@ -1,11 +1,11 @@
 <x-guest-layout>
-    <div class="w-full max-w-xl mx-auto px-6 py-4 bg-white shadow-lg rounded-lg">
+    <div class="w-full max-w-xl mx-auto px-6 py-4 bg-sky-50 rounded-lg">
         @section('title', 'CocoLog / 会員登録')
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            <h1 class="text-4xl mt-4 font-bold text-green-600 text-center">CocoLog</h1>
-            <h2 class="mt-4 mb-4 text-xl font-bold text-center">会員登録</h2>
+            <img src="{{ asset('images/logo.png') }}" alt="CocoLogロゴ" class="w-60 h-auto mx-auto my-8">
+            <h2 class="mt-4 mb-8 text-2xl font-bold text-center">会員登録</h2>
 
             <!-- Name -->
             <div class="flex items-center">
@@ -49,7 +49,7 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-primary-button class="ms-4">
+                <x-primary-button class="ms-4 bg-blue-500 hover:bg-blue-700">
                     {{ __('Register') }}
                 </x-primary-button>
             </div>

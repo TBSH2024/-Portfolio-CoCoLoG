@@ -19,9 +19,8 @@ return new class extends Migration
             $table->json('good_actions')->nullable();
             $table->json('neutral_actions')->nullable();
             $table->json('bad_actions')->nullable();
+            $table->integer('evaluation');
             $table->timestamps();
-
-            $table->unique(['user_id', 'input_date']);
         });
     }
 

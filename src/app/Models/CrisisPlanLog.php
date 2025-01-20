@@ -14,6 +14,7 @@ class CrisisPlanLog extends Model
         'good_actions',
         'neutral_actions',
         'bad_actions',
+        'evaluation',
     ];
     
 
@@ -22,6 +23,18 @@ class CrisisPlanLog extends Model
         'neutral_actions' => 'array',
         'bad_actions' => 'array',
     ];
+
+    public function getEvaluationAttribute()
+    {
+        $labels = [
+            1 => '安定状態',
+            2 => '安定状態〜注意状態',
+            3 => '注意状態',
+            4 => '注意状態〜要注意状態',
+            5 => '要注意状態',
+        ];
+        return $labels[$this->attributes['evaluation']] ?? '点数なし';
+    }
 
     public function scopeGroupByMonth($query, $userId)
     {

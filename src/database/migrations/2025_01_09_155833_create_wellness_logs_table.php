@@ -15,13 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->date('input_date');
-            $table->integer('mood');
             $table->integer('energy_level');
             $table->integer('sleep_quality');
+            $table->integer('mood');
+            $table->integer('score');
             $table->text('comments')->nullable();
             $table->timestamps();
-
-            $table->unique(['user_id', 'input_date']);
         });
     }
 

@@ -11,28 +11,21 @@ class CrisisPlan extends Model
     protected $fillable = [
         'user_id',
         'good_actions',
+        'good_methods',
         'neutral_actions',
+        'neutral_methods',
         'bad_actions',
+        'bad_methods',
     ];
 
     protected $casts = [
         'good_actions' => 'array',
+        'good_methods' => 'array',
         'neutral_actions' => 'array',
+        'neutral_methods' => 'array',
         'bad_actions' => 'array',
+        'bad_methods' => 'array'
     ];
-
-    public function getGoodActionsAttribute($value)
-    {
-        return json_decode($value, true);
-    }
-    public function getNeutralActionsAttribute($value)
-    {
-        return json_decode($value, true);
-    }
-    public function getBadActionsAttribute($value)
-    {
-        return json_decode($value, true);
-    }
 
     /**
      * Userとのリレーション

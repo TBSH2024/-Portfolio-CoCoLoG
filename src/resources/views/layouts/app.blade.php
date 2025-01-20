@@ -21,12 +21,12 @@
             @include('layouts.navigation')
 
             @if (session('success'))
-                <div class="alert bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative max-w-7xl mx-auto mt-4" role="alert">
+                <div class="alert bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative max-w-6xl mx-auto mt-4" role="alert">
                 {{ session('success') }}
                 </div>
             @endif
             @if (session('danger'))
-                <div class="alert bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-7xl mx-auto mt-4" role="alert">
+                <div class="alert bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-6xl mx-auto mt-4" role="alert">
                     {{ session('danger') }}
                 </div>
             @endif

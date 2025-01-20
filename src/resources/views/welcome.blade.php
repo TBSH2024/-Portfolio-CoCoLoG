@@ -1,6 +1,6 @@
 <x-guest-layout>
     @section('title', 'CocoLog')
-
+    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
     <header class="text-white max-w-7xl w-full">
         <div class="container mx-auto flex justify-between items-center py-4 px-4">
         <a href="#">
@@ -63,4 +63,5 @@
             <p class="text-center">©2025 CoCoLog. All Rights Reserved.</p>
          </footer>
     </main>
+</div>
 </x-guest-layout>

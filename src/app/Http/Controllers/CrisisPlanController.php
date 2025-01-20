@@ -26,20 +26,29 @@ class CrisisPlanController extends Controller
 
         $validated = $request->validate([
             'good_actions' => ['required', 'array', 'min:1', 'max:5'],
+            'good_methods' => ['required', 'array', 'min:1', 'max:3'],
             'neutral_actions' => ['required', 'array', 'min:1', 'max:5'],
+            'neutral_methods' => ['required', 'array', 'min:1', 'max:3'],
             'bad_actions' => ['required', 'array', 'min:1', 'max:5'],
+            'bad_methods' => ['required', 'array', 'min:1', 'max:3'],
         ]);
+
+        // エラーメッセージの表示（hasAtLeastOnNonEmptyと連携）
+        $fields = [
+            'good_actions',
+            'good_methods',
+            'neutral_actions',
+            'neutral_methods',
+            'bad_actions',
+            'bad_methods',
+        ];
 
         $errors = [];
 
-        if (!$this->hasAtLeastOneNonEmpty($validated['good_actions'])) {
-            $errors['good_actions'] = 'この項目は最低1つは入力してください。';
-        }
-        if (!$this->hasAtLeastOneNonEmpty($validated['neutral_actions'])) {
-            $errors['neutral_actions'] = 'この項目は最低1つは入力してください。';
-        }
-        if (!$this->hasAtLeastOneNonEmpty($validated['bad_actions'])) {
-            $errors['bad_actions'] = 'この項目は最低1つは入力してください。';
+        foreach ($fields as $field) {
+            if (!$this->hasAtLeastOneNonEmpty($validated[$field])) {
+                $errors[$field] = '※最低1つは入力してください。';
+            }
         }
 
         if (!empty($errors)) {
@@ -49,8 +58,11 @@ class CrisisPlanController extends Controller
         CrisisPlan::create([
             'user_id' => Auth::id(),
             'good_actions' => array_filter($validated['good_actions'], fn($value) => !empty($value)),
+            'good_methods' => array_filter($validated['good_methods'], fn($value) => !empty($value)),
             'neutral_actions' => array_filter($validated['neutral_actions'], fn($value) => !empty($value)),
+            'neutral_methods' => array_filter($validated['neutral_methods'], fn($value) => !empty($value)),
             'bad_actions' => array_filter($validated['bad_actions'], fn($value) => !empty($value)),
+            'bad_methods' => array_filter($validated['bad_methods'], fn($value) => !empty($value)),
         ]);
 
         return to_route('dashboard')->with('success', 'クライシスプランを作成しました。');
@@ -95,11 +107,6 @@ class CrisisPlanController extends Controller
 
     private function hasAtLeastOneNonEmpty(array $actions): bool
     {
-        foreach ($actions as $action) {
-            if (!empty($action)) {
-                return true;
-            }
-        }
-        return false;
+        return !empty(array_filter($actions));
     }
 }

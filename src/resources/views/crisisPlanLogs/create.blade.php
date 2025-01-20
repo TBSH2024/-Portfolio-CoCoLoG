@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'CocoLog / クライシスプラン記録の作成')
     <section class="text-gray-600 body-font relative">
-        <div class="container px-5 py-24 mx-auto max-w-6xl">
+        <div class="container px-5 py-6 mx-auto max-w-6xl">
             <div class="flex flex-col text-center w-full mb-6">
                 @if ($crisisPlanLog)
                 <div class="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
@@ -19,9 +19,9 @@
                     @csrf
                     <div class="bg-white p-6 rounded-lg shadow-lg">
                         <div class="mb-6 text-left">
-                            <h1 class="sm:text-4xl text-2xl font-medium title-font mb-4 text-gray-900 text-center">{{ $user->name }}さんの状態入力</h1>
+                            <h1 class="sm:text-4xl text-2xl font-medium title-font mb-4 text-gray-900 text-center mt-6">{{ $user->name }}さんの状態入力</h1>
                             <label for="date" class="block text-lg font-semibold text-gray-800 mb-2">入力日</label>
-                            <input type="date" id="date" name="input_date" class="w-1/4 bg-gray-100 rounded border border-gray-300 py-3 px-5 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200" value="{{ old('date', now()->toDateString()) }}">
+                            <input type="date" id="date" name="input_date" class="w-1/4 rounded border border-gray-300 py-3 px-5 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200" value="{{ old('date', now()->toDateString()) }}">
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -69,7 +69,7 @@
                                         @if ($action)
                                             <div class="flex items-center">
                                                 <input type="checkbox" id="bad_action_{{ $i }}" name="bad_actions[]" value="{{ $action }}" class="mr-3 text-pink-500" {{ in_array($action, old('bad_actions', [])) ? 'checked' : '' }}>
-                                                <label for="bad_action_{{ $i }}" class="text-gray-700">{{ $action }}</label>
+                                                <label for="bad_action_{{ $i }}" class="text-gray-700 text-left">{{ $action }}</label>
                                             </div>
                                         @endif
                                     @endforeach
@@ -79,14 +79,17 @@
                         </div>
 
                         <div class="my-6 text-left">
-                            <label for="level" class="block text-lg font-semibold text-gray-800 mb-2">総合評価</label>
-                            <select class="block text-lg text-gray-800 mb-2">
+                            <label for="evaluation" class="block text-lg font-semibold text-gray-800 mb-2">総合評価</label>
+                            @error('evaluation')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                            <select name="evaluation" class="w-1/4 block text-lg text-gray-800 mb-2 rounded-lg border-gray-400">
                                 <option value="">選択してください</option>
-                                <option value="1">安定状態</option>
-                                <option value="2">安定状態〜注意状態</option>
-                                <option value="3">注意状態</option>
-                                <option value="4">注意状態〜要注意状態</option>
-                                <option value="5">要注意状態</option>
+                                <option value="1" value="{{ old('evaluation') == 1 ? 'selected' : '' }}">安定状態</option>
+                                <option value="2" value="{{ old('evaluation') == 2 ? 'selected' : '' }}">安定状態〜注意状態</option>
+                                <option value="3" value="{{ old('evaluation') == 3 ? 'selected' : '' }}">注意状態</option>
+                                <option value="4" value="{{ old('evaluation') == 4 ? 'selected' : '' }}">注意状態〜要注意状態</option>
+                                <option value="5" value="{{ old('evaluation') == 5 ? 'selected' : '' }}">要注意状態</option>
                             </select>
                         </div>
 

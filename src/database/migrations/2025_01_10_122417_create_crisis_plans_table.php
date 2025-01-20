@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->json('good_actions');
+            $table->json('good_methods');
             $table->json('neutral_actions');
+            $table->json('neutral_methods');
             $table->json('bad_actions');
+            $table->json('bad_methods');
             $table->timestamps();
         });
     }

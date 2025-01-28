@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for cocolog on 2025-01-20T10:30:48+09:00
+# fly.toml app configuration file generated for cocolog on 2025-01-27T18:13:49+09:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -15,9 +15,15 @@ primary_region = 'nrt'
   processes = ['app']
 
 [[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
+  size = 'shared-cpu-1x'
 
 [build]
-  dockerfile = "docker/php/Dockerfile"
+  dockerfile = ".fly/Dockerfile.fly"
+
+[env]
+  APP_URL = "https://cocolog.fly.dev/"
+  APP_ENV = "production"
+  DB_CONNECTION = "pgsql"
+  DB_HOST = "cocolog-db.internal"
+  DB_DATABASE= "cocolog" 
+  DB_PORT = 5432

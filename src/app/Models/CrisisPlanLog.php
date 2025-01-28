@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use App\Models\CrisisPlan;
 
 class CrisisPlanLog extends Model
@@ -39,9 +40,9 @@ class CrisisPlanLog extends Model
     public function scopeGroupByMonth($query, $userId)
     {
         return $query->where('user_id', $userId)
-            ->selectRaw('DATE_FORMAT(input_date, "%Y-%m") as month, COUNT(*) as count')
-            ->groupBy('month')
-            ->orderBy('month', 'desc');
+            ->select(DB::raw("input_date"), DB::raw("COUNT(*) as count"))
+            ->groupBy(DB::raw("input_date"))
+            ->orderBy('input_date', 'desc');
     }
 
     /**

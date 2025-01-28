@@ -8,6 +8,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    publicDir: 'public',
+    base: '/',
     server: {
         host: '0.0.0.0',
         hmr: {

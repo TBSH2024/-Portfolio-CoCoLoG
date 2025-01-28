@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\WellnessLog;
 use App\Services\ConvertLogsService;
@@ -22,11 +23,11 @@ class WellnessLogsController extends Controller
 
         // 月ごとのログをグループ化し、ページネーションを適用
         $logsByMonth = WellnessLog::where('user_id', $this->user->id)
-        ->selectRaw('YEAR(input_date) as year, MONTH(input_date) as month')
-        ->groupByRaw('YEAR(input_date), MONTH(input_date)')
-        ->orderByDesc('year')
-        ->orderByDesc('month')
-        ->paginate(1);
+            ->select(DB::raw("EXTRACT(YEAR FROM input_date) as year"), DB::raw("EXTRACT(MONTH FROM input_date) as month"))
+            ->groupBy('year', 'month')
+            ->orderByDesc('year')
+            ->orderByDesc('month')
+            ->paginate(1);
 
         $logsByDay = WellnessLog::where('user_id', $this->user->id)
         ->whereMonth('input_date', now()->month)

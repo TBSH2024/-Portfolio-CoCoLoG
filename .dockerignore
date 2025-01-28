@@ -1,7 +1,4 @@
 # flyctl launch added from src/.gitignore
-docker
-compose.yml
-memo.md
 src/.idea
 src/.vscode
 src/.nova

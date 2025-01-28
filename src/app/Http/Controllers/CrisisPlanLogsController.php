@@ -56,22 +56,29 @@ class CrisisPlanLogsController extends Controller
             'good_actions' => ['array', 'nullable'],
             'neutral_actions' => ['array', 'nullable'],
             'bad_actions' => ['array', 'nullable'],
+            'evaluation' => ['required', 'integer', 'between:1,5'],
         ]);
 
-        $crisisPlanId = CrisisPlan::where('user_id', $user->id)->firstOrFail()->id;
-        if (!$crisisPlanId) {
-            return redirect()->back();
-        }
-        
-        $inputDate = $validated['input_date'];
+        // 既にデータが存在するか確認
+        $existingLog = CrisisPlanLog::where('user_id', $user->id)
+            ->where('input_date', $validated['input_date'])
+            ->first();
 
-        $crisisPlanLog = CrisisPlanLog::create([
+        if ($existingLog) {
+            return redirect()->back()->with('danger', 'この日付は既に記録があります。')
+            ->withInput();
+        }
+
+        $crisisPlanTable = CrisisPlan::where('user_id', $user->id)->first();
+
+        CrisisPlanLog::create([
             'user_id' => $user->id,
-            'crisis_plan_id' => $crisisPlanId,
-            'input_date' => $inputDate,
+            'crisis_plan_id' => $crisisPlanTable->id,
+            'input_date' => $validated['input_date'],
             'good_actions' => $validated['good_actions'] ?? [],
             'neutral_actions' => $validated['neutral_actions'] ?? [],
             'bad_actions' => $validated['bad_actions'] ?? [],
+            'evaluation' => $validated['evaluation'],
         ]);
 
         return to_route('dashboard')->with('success', 'データが保存されました。');
@@ -100,6 +107,7 @@ class CrisisPlanLogsController extends Controller
             'good_actions' => ['array', 'nullable'],
             'neutral_actions' => ['array', 'nullable'],
             'bad_actions' => ['array', 'nullable'],
+            'evaluation' => ['required', 'integer', 'between:1,5'],
         ]);
 
         $crisisPlanLog->update($validated);

@@ -259,7 +259,9 @@ return [
         'input_date' => '入力日',
         'mood' => '気分',
         'energy_level' => '元気度',
-        'sleep_quality' => '睡眠の質'
+        'sleep_quality' => '睡眠の質',
+        'evaluation' => '総合点数',
+        'comments' => 'コメント',
     ],
 
 ];

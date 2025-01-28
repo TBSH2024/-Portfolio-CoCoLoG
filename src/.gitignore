@@ -35,6 +35,6 @@ Thumbs.db
 *.bak
 *.swp
 /phpunit.cache
-../.dockerignore
-../fly.toml
-../memo.md
+/.dockerignore
+/fly.toml
+/memo.md
